@@ -1,0 +1,106 @@
+
+
+[XGServerEvent.m setupRunLoopInputSourcesForMode:] 
+  xEventQueueFd = XConnectionNumber(dpy);   
+  [currentRunLoop addEvent: (void*)(gsaddr)xEventQueueFd
+                      type: ET_RDESC
+                   watcher: (id<RunLoopEvents>)self
+                   forMode: mode];
+                 ^
+                 |
+                 v
+[XGServerEvent.m - (void) receivedEvent: (void*)data
+                  type: (RunLoopEventType)type
+                 extra: (void*)extra
+               forMode: (NSString*)mode]
+|
+ -> [XGServerEvent.m processEvent:]
+   |
+    -> case/if/else
+         xEvent ~ XdndEnter
+           [NSEvent otherEventWithType: NSAppKitDefined
+                           location: eventLocation
+                           modifierFlags: 0
+                           timestamp: 0
+                           windowNumber: cWin->number
+                           context: gcontext
+                           subtype: GSAppKitDraggingEnter
+                           data1: source
+                           data2: 0];
+           /* If this is a non-local drag, set the dragInfo */
+           if ([XGServer _windowForXWindow: source] == NULL)
+           {
+             [[XGDragView sharedDragView] setupDragInfoFromXEvent:
+                                                 &xEvent];
+           }
+                                             &xEvent]
+         xEvent ~ XdndPosition
+           action = XDND_POSITION_ACTION(&xEvent);
+           operation = GSDragOperationForAction(action);
+           e = [NSEvent otherEventWithType: NSAppKitDefined
+                           location: eventLocation
+                           modifierFlags: 0
+                           timestamp: time / 1000.0
+                           windowNumber: cWin->number
+                           context: gcontext
+                           subtype: GSAppKitDraggingUpdate
+                           data1: source
+                           data2: operation];
+           /* If this is a non-local drag, update the dragInfo */
+           if ([XGServer _windowForXWindow: source] == NULL)
+           {
+             [[XGDragView sharedDragView] updateDragInfoFromEvent:
+                                                 e];
+           }
+         xEvent ~ XdndStatus
+           operation = GSDragOperationForAction(action);
+           e = [NSEvent otherEventWithType: NSAppKitDefined
+                           location: eventLocation
+                           modifierFlags: 0
+                           timestamp: 0
+                           windowNumber: cWin->number
+                           context: gcontext
+                           subtype: GSAppKitDraggingStatus
+                           data1: target
+                           data2: operation];
+         xEvent ~ XdndLeave
+           e = [NSEvent otherEventWithType: NSAppKitDefined
+                           location: eventLocation
+                           modifierFlags: 0
+                           timestamp: 0
+                           windowNumber: cWin->number
+                           context: gcontext
+                           subtype: GSAppKitDraggingExit
+                           data1: 0
+                           data2: 0];
+           /* If this is a non-local drag, reset the dragInfo */
+           if ([XGServer _windowForXWindow: source] == NULL)
+           {
+              [[XGDragView sharedDragView] resetDragInfo];
+           }
+         xEvent ~ XdndDrop
+           e = [NSEvent otherEventWithType: NSAppKitDefined
+                           location: eventLocation
+                           modifierFlags: 0
+                           timestamp: time / 1000.0
+                           windowNumber: cWin->number
+                           context: gcontext
+                           subtype: GSAppKitDraggingDrop
+                           data1: source
+                           data2: 0];
+         xEvent ~ XdndFinished
+           e = [NSEvent otherEventWithType: NSAppKitDefined
+                           location: eventLocation
+                           modifierFlags: 0
+                           timestamp: 0
+                           windowNumber: cWin->number
+                           context: gcontext
+                           subtype: GSAppKitDraggingFinished
+                           data1: target
+                           data2: 0];
+     .....
+    if (e)
+    {
+      [event_queue addObject: e];
+    }
+
