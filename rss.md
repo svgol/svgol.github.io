@@ -1,4 +1,4 @@
-layout: page
+layout: null
 title: "The example of a malformed rss item"
 permalink: /rss/
 
