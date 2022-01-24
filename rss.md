@@ -1,6 +1,8 @@
-layout: null
+---
+layout: none
 title: "The example of a malformed rss item"
 permalink: /rss/
+---
 
 <rss version="2.0"
      xml:base="https://developers.redhat.com/"
