@@ -8,9 +8,9 @@ permalink: /rss/
      xml:base="https://developers.redhat.com/"
      xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <atom:link href="https://developers.redhat.com/blog/feed" rel="self" type="application/rss+xml"/>
-    <title>Red Hat Developer</title>
-    <link>https://developers.redhat.com/</link>
+    <atom:link href="https://svgol.github.io/rss" rel="self" type="application/rss+xml"/>
+    <title>svgol' test feed</title>
+    <link>https://https://svgol.github.io/rss</link>
     <description>
       Stories and tutorials on the latest technologies in cloud application development.
     </description>
