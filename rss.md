@@ -19,12 +19,8 @@ permalink: /rss/
     <sy:updatePeriod>hourly</sy:updatePeriod>
     <sy:updateFrequency>1</sy:updateFrequency>
     <item>
-      <title>
-	How to connect Prometheus to OpenShift Streams for Apache Kafka
-      </title>
-      <link>
-	https://developers.redhat.com/articles/2021/12/17/how-connect-prometheus-openshift-streams-apache-kafka
-      </link>
+      <title>How to connect Prometheus to OpenShift Streams for Apache Kafka</title>
+      <link>https://developers.redhat.com/articles/2021/12/17/how-connect-prometheus-openshift-streams-apache-kafka</link>
       <description>
 <p>You've always been able to view some metrics for <a href="https://developers.redhat.com/products/red-hat-openshift-streams-for-apache-kafka/overview">Red Hat OpenShift Streams for Apache Kafka</a> in the UI or access them via the API. We recently added a feature to OpenShift Streams for Apache Kafka that exports these metrics to <a href="https://prometheus.io">Prometheus</a>, a system monitoring and alerting toolkit. Connecting these services lets you view your exported metrics alongside your other Kafka cluster metrics.</p>
 
