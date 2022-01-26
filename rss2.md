@@ -10,7 +10,7 @@ permalink: /rss2/
   <channel>
     <atom:link href="https://svgol.github.io/rss2" rel="self" type="application/rss+xml"/>
     <title>svgol' another test feed</title>
-    <link>https://https://svgol.github.io/rss2</link>
+    <!-- <link>https://https://svgol.github.io/rss2</link> -->
     <description>
       Stories and tutorials on the latest technologies in cloud application development.
     </description>
