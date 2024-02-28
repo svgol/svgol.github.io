@@ -1,0 +1,155 @@
+--- ../wmclockmon-0.8.1/wmclockmon-config/main.c	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-config/main.c	2024-02-27 10:24:45.727116679 +0400
+@@ -22,6 +22,21 @@
+     exit(1);
+ }
+ 
++int    backlight;
++int    switch_authorized;
++int    h12;
++int    time_mode;
++int    use_leds;
++int    use_locale;
++int    showcal;
++int    calalrms;
++char  *style_name;
++char  *style_dir;
++char  *config_file;
++char  *light_color;
++char  *command;
++char  *msgcmd;
++Alarm *alarms;
+ 
+ void app_init(int argc, char *argv[]) {
+     int   ind = 1;
+--- ../wmclockmon-0.8.1/wmclockmon-config/variables.h	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-config/variables.h	2024-02-27 10:24:45.730450013 +0400
+@@ -7,20 +7,20 @@
+ 
+ #include "defines.h"
+ 
+-int    backlight;
+-int    switch_authorized;
+-int    h12;
+-int    time_mode;
+-int    use_leds;
+-int    use_locale;
+-int    showcal;
+-int    calalrms;
+-char  *style_name;
+-char  *style_dir;
+-char  *config_file;
+-char  *light_color;
+-char  *command;
+-char  *msgcmd;
+-Alarm *alarms;
++extern int    backlight;
++extern int    switch_authorized;
++extern int    h12;
++extern int    time_mode;
++extern int    use_leds;
++extern int    use_locale;
++extern int    showcal;
++extern int    calalrms;
++extern char  *style_name;
++extern char  *style_dir;
++extern char  *config_file;
++extern char  *light_color;
++extern char  *command;
++extern char  *msgcmd;
++extern Alarm *alarms;
+ 
+ #endif
+--- ../wmclockmon-0.8.1/wmclockmon-config/edit.h	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-config/edit.h	2024-02-27 10:24:45.727116679 +0400
+@@ -5,7 +5,7 @@
+ #ifndef EDIT_H
+ #define EDIT_H
+ 
+-char *newalarm;
++extern char *newalarm;
+ 
+ void edit_dialog(const char *title,
+         int on,
+--- ../wmclockmon-0.8.1/wmclockmon-config/edit.c	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-config/edit.c	2024-02-27 10:24:45.727116679 +0400
+@@ -16,6 +16,8 @@
+ static GtkWidget *wid_date;
+ static GtkWidget *wid_mesg;
+ 
++char *newalarm;
++
+ void set_data(GtkWidget *widget, GtkWidget *data) {
+     char *wstat = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(wid_status)->entry));
+     char *wtime = gtk_entry_get_text(GTK_ENTRY(wid_time));
+--- ../wmclockmon-0.8.1/wmclockmon-config/mainwindow.h	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-config/mainwindow.h	2024-02-27 10:24:45.730450013 +0400
+@@ -7,24 +7,24 @@
+ 
+ #include <gtk/gtk.h>
+ 
+-GtkWidget *application;
+-GtkWidget *alarmlist;
+-GtkWidget *wid_backlight;
+-GtkWidget *wid_blink;
+-GtkWidget *wid_styledir;
+-GtkWidget *wid_stylename;
+-GtkWidget *wid_color;
+-GtkWidget *wid_command;
+-GtkWidget *wid_msgcmd;
+-GtkWidget *wid_h12;
+-GtkWidget *wid_clk;
+-GtkWidget *wid_itm;
+-GtkWidget *wid_bin;
+-GtkWidget *wid_locale;
+-GtkWidget *wid_showcal;
+-GtkWidget *wid_calalrms;
++extern GtkWidget *application;
++extern GtkWidget *alarmlist;
++extern GtkWidget *wid_backlight;
++extern GtkWidget *wid_blink;
++extern GtkWidget *wid_styledir;
++extern GtkWidget *wid_stylename;
++extern GtkWidget *wid_color;
++extern GtkWidget *wid_command;
++extern GtkWidget *wid_msgcmd;
++extern GtkWidget *wid_h12;
++extern GtkWidget *wid_clk;
++extern GtkWidget *wid_itm;
++extern GtkWidget *wid_bin;
++extern GtkWidget *wid_locale;
++extern GtkWidget *wid_showcal;
++extern GtkWidget *wid_calalrms;
+ 
+-int selected_row;
++extern int selected_row;
+ 
+ gint list_unsel_cb (GtkCList *clist,
+         gint row,
+--- ../wmclockmon-0.8.1/wmclockmon-config/mainwindow.c	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-config/mainwindow.c	2024-02-27 10:37:00.160500462 +0400
+@@ -14,6 +14,24 @@
+ static GtkWidget *set;
+ static GtkWidget *remove;
+ 
++GtkWidget *application;
++GtkWidget *alarmlist;
++GtkWidget *wid_backlight;
++GtkWidget *wid_blink;
++GtkWidget *wid_styledir;
++GtkWidget *wid_stylename;
++GtkWidget *wid_color;
++GtkWidget *wid_command;
++GtkWidget *wid_msgcmd;
++GtkWidget *wid_h12;
++GtkWidget *wid_clk;
++GtkWidget *wid_itm;
++GtkWidget *wid_bin;
++GtkWidget *wid_locale;
++GtkWidget *wid_showcal;
++GtkWidget *wid_calalrms;
++int selected_row;
++
+ static gint list_sel_cb (GtkCList *clist,
+                          gint row,
+                          gint column,

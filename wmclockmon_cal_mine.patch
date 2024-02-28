@@ -1,0 +1,80 @@
+--- ../wmclockmon-0.8.1/wmclockmon-cal/main.c	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-cal/main.c	2024-02-27 10:24:45.713783345 +0400
+@@ -15,6 +15,7 @@
+ #include "mainwindow.h"
+ #include "main.h"
+ 
++struct tm *timeinfos;
+ 
+ void Usage () {
+     printf("Usage: "PACKAGE"-cal [-h] [-v]\n"
+--- ../wmclockmon-0.8.1/wmclockmon-cal/main.h	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-cal/main.h	2024-02-27 10:24:45.713783345 +0400
+@@ -9,7 +9,7 @@
+ #include <sys/time.h>
+ 
+ 
+-struct tm *timeinfos;
++extern struct tm *timeinfos;
+ 
+ void quit_app();
+ 
+--- ../wmclockmon-0.8.1/wmclockmon-cal/mainwindow.h	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-cal/mainwindow.h	2024-02-27 10:24:45.713783345 +0400
+@@ -7,20 +7,20 @@
+ 
+ #include <gtk/gtk.h>
+ 
+-GtkWidget *application;
+-GtkWidget *alarmlist;
+-GtkWidget *wid_backlight;
+-GtkWidget *wid_blink;
+-GtkWidget *wid_styledir;
+-GtkWidget *wid_stylename;
+-GtkWidget *wid_color;
+-GtkWidget *wid_command;
+-GtkWidget *wid_msgcmd;
+-GtkWidget *wid_h12;
+-GtkWidget *wid_itm;
+-GtkWidget *wid_locale;
++extern GtkWidget *application;
++extern GtkWidget *alarmlist;
++extern GtkWidget *wid_backlight;
++extern GtkWidget *wid_blink;
++extern GtkWidget *wid_styledir;
++extern GtkWidget *wid_stylename;
++extern GtkWidget *wid_color;
++extern GtkWidget *wid_command;
++extern GtkWidget *wid_msgcmd;
++extern GtkWidget *wid_h12;
++extern GtkWidget *wid_itm;
++extern GtkWidget *wid_locale;
+ 
+-int selected_row;
++extern int selected_row;
+ 
+ gint list_unsel_cb (GtkCList *clist,
+         gint row,
+--- ../wmclockmon-0.8.1/wmclockmon-cal/mainwindow.c	2005-04-07 14:37:43.000000000 +0500
++++ ../wmclockmon-0.8.1.mine/wmclockmon-cal/mainwindow.c	2024-02-27 10:24:45.713783345 +0400
+@@ -46,6 +46,20 @@
+ static int        dateb = 0;
+ static char       daystr[MAXSTRLEN + 1];
+ 
++GtkWidget *application;
++GtkWidget *alarmlist;
++GtkWidget *wid_backlight;
++GtkWidget *wid_blink;
++GtkWidget *wid_styledir;
++GtkWidget *wid_stylename;
++GtkWidget *wid_color;
++GtkWidget *wid_command;
++GtkWidget *wid_msgcmd;
++GtkWidget *wid_h12;
++GtkWidget *wid_itm;
++GtkWidget *wid_locale;
++
++int selected_row;
+ 
+ static void show_editor() {
+     gtk_widget_hide(calendar);
